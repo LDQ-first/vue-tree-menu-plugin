@@ -6,17 +6,22 @@
                  @click="toggle" >
                     <span class="name">{{list.name}}</span>
                     <div class="constrol">
-                        <span @click.stop="changeType" class="addChild">{{AddText}}</span>
-                        <span @click.stop="deleteChild" class="deleteChild">{{DeleteText}}</span>
-                        <span v-if="isFolder">[{{spread ? '-' : '+'}}]</span>
+                        <span @click.stop="changeType" class="addChild" v-if="addbtn">{{AddText}}</span>
+                        <span @click.stop="deleteChild" class="deleteChild" v-if="deletebtn && !this.list.root">{{DeleteText}}</span>
+                        <span v-if="isFolder">
+                            <img class="icon" src="./icon/unfold.svg" v-if="spread"></img>
+                            <img class="icon" src="./icon/fold.svg" v-else></img>
+                        </span>
                     </div>
                 </button>
             </ripple>
         </div>
         <ul v-show="spread" v-if="isFolder" class="list">
             <treeMenu v-for="(list, index) in list.children" 
-            key="index"  class="item"  :list="list" :name="name" :addText="addText" :deleteText="deleteText"></treeMenu>
-            <ripple :isInline="true" class="addripple" bg="#F35286" speed="1">
+            key="index"  class="item"  :list="list" :name="name" :addText="addText" :deleteText="deleteText"
+            addbtn="addbtn" deletebtn="deletebtn" add="add">
+            </treeMenu>
+            <ripple :isInline="true" class="addripple" bg="#F35286" speed="1" v-if="add">
                 <li slot="pure" class="add" @click="addChild"> + </li>
             </ripple>
         </ul>
@@ -43,6 +48,19 @@
                 type: String,
                 required: false
             },
+            add: {
+                type: Boolean,
+                required: false
+            },
+            deletebtn: {
+                type: Boolean,
+                required: false
+            },
+            addbtn: {
+                type: Boolean,
+                required: false
+            }
+
         },
         data () {
             return {
@@ -58,7 +76,6 @@
         },
         methods: {
             toggle () {
-                console.log('toggle')
                 if (this.isFolder) {
                     this.spread = !this.spread
                 }
@@ -71,7 +88,6 @@
                 }
             },
             addChild () {
-                console.log(this.name)
                 this.list.children.push({
                     name: this.name || 'new item'
                 })
@@ -108,6 +124,8 @@
     }
     .addripple {
         margin: 16px;
+        box-shadow: 0 1px 6px rgba(0,0,0,.4),
+                    0 1px 4px rgba(0,0,0,.2);
         .add {
             background: #CCC;
             width: 20px;
@@ -117,8 +135,7 @@
             align-items: center;
             padding: 5px;
             cursor: pointer;
-            box-shadow: 0 1px 6px rgba(0,0,0,.4),
-                        0 1px 4px rgba(0,0,0,.2); 
+            
         }
     }   
     
@@ -142,23 +159,35 @@
         align-items: center;
         justify-content: space-between;
         &:hover {
-            background: rgba(77, 175, 229, 0.2);
-            .addChild {
-                display: inline-block;
-            }
-            .deleteChild {
-                display: inline-block;
+            background: rgba(77, 175, 229, 0.4);
+            .constrol {
+                .addChild {
+                    display: inline-block;
+                }
+                .deleteChild {
+                    display: inline-block;
+                }
             }
         }
         .constrol  {
 
+            .addChild {
+                display: none;
+            }
+            .deleteChild {
+                display: none;
+                &:hover {
+                    color: red;
+                }
+            }
+            .icon {
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
-        .addChild {
-            display: none;
-        }
-        .deleteChild {
-            display: none;
-        }
+        
        
     }
 </style>

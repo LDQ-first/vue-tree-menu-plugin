@@ -13,13 +13,15 @@
     "sass": "cnpm install --save sass-loader node-sass",
     "hljs": "cnpm install --save highlight.js",
     "r": "cnpm install -S vue-useripple",
-    "i": "npm run sass && npm run hljs && npm run r"
+    "i": "npm run sass && npm run hljs && npm run r",
+    "t": "cnpm install -S vue-tree-menu"
   },
   "dependencies": {
     "highlight.js": "^9.12.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "vue": "^2.4.2",
+    "vue-tree-menu": "^1.0.2",
     "vue-useripple": "^1.1.5"
   },
   "devDependencies": {

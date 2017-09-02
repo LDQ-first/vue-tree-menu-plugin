@@ -16,7 +16,8 @@
                                     <div class="content">
                                         <p>Panel</p>
                                         <ul class="list">
-                                            <treeMenu :list="list" name="new" addText="create"></treeMenu>
+                                            <treeMenu :list="list" name="new" addText="create"
+                                            :addbtn="true" :deletebtn="true" :add="true"></treeMenu>
                                         </ul>
                                     </div>
                                 </div>
@@ -24,6 +25,7 @@
                         </div>
                         <div class="code" v-hljs>
                             <pre><code>{{codeOne.html}}</code></pre>
+                            <pre><code>{{codeOne.data}}</code></pre>
                         </div>
                     </section>
                 </div>
@@ -33,14 +35,11 @@
                     <p class="remind">
                          <span class="keypoint">
                             <img class="remind-img" src="../assets/icon/resume.svg">
-                            <strong>You should restart vue after finishing install vue-usemodal</strong>
+                            <strong>You should restart vue after finishing install vue-tree-menu</strong>
                         </span>
                          <span class="keypoint">
                             <img class="remind-img" src="../assets/icon/resume.svg">
-                            <strong>next function must return promise</strong>
-                        </span>
-                        <span>
-                            Ripple isn't necessary
+                            <strong>List must be an Object</strong>
                         </span>
                     </p>
                 </div>
@@ -86,9 +85,11 @@
                     html: ''
                 },
                 codeTwo: {
-                    html: ''
+                    html: '',
+                    data: '',
                 },
                 list: {
+                    root: true,
                     name: 'My Tree',
                     children: [
                         { name: 'hello' },
@@ -154,15 +155,46 @@
                     this.codeOne.html = 
     ` 
     <!--html-->
-     
+    <ul class="list">
+        <treeMenu :list="list" name="new" addText="create"
+        :addbtn="true" :deletebtn="true" :add="true"></treeMenu>
+    </ul>
    
     `
-                    this.codeTwo.html =
-    `
-    <!--html-->
-    
-    
-    `
+                    this.codeOne.data =
+`
+<!--data-->
+list: {
+    root: true,
+    name: 'My Tree',
+    children: [
+        { name: 'hello' },
+        { name: 'wat' },
+        {
+        name: 'child folder',
+        children: [
+            {
+                name: 'child folder',
+                children: [
+                    { name: 'hello' },
+                    { name: 'wat' }
+                ]
+            },
+            { name: 'hello' },
+            { name: 'wat' },
+            {
+                name: 'child folder',
+                children: [
+                    { name: 'hello' },
+                    { name: 'wat' }
+                ]
+            }
+        ]
+        }
+    ]
+}
+
+`
                 
             }
 
