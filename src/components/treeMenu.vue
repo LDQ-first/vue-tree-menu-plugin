@@ -1,17 +1,21 @@
 <template>
-    <li>
+    <li  v-if="!isEmptyObj(list)">
         <div>
             <ripple>
                 <button slot="pure" class="item-btn" :class="{parent: isFolder}"
-                 @click="toggle" @dblclick="changeType">
-                    {{list.name}}
-                    <span v-if="isFolder">[{{spread ? '-' : '+'}}]</span>
+                 @click="toggle" >
+                    <span class="name">{{list.name}}</span>
+                    <div class="constrol">
+                        <span @click.stop="changeType" class="addChild">{{AddText}}</span>
+                        <span @click.stop="deleteChild" class="deleteChild">{{DeleteText}}</span>
+                        <span v-if="isFolder">[{{spread ? '-' : '+'}}]</span>
+                    </div>
                 </button>
             </ripple>
         </div>
         <ul v-show="spread" v-if="isFolder" class="list">
             <treeMenu v-for="(list, index) in list.children" 
-            key="index" :list="list" class="item"></treeMenu>
+            key="index"  class="item"  :list="list" :name="name" :addText="addText" :deleteText="deleteText"></treeMenu>
             <ripple :isInline="true" class="addripple" bg="#F35286" speed="1">
                 <li slot="pure" class="add" @click="addChild"> + </li>
             </ripple>
@@ -27,12 +31,24 @@
                 type: Object,
                 required: true
             },
-
-
+            name: {
+                type: String,
+                required: false
+            },
+            addText:{
+                type: String,
+                required: false
+            },
+            deleteText: {
+                type: String,
+                required: false
+            },
         },
         data () {
             return {
-                spread: false
+                spread: false,
+                AddText: this.addText || 'add',
+                DeleteText: this.deleteText || 'delete'
             }
         },
         computed: {
@@ -55,9 +71,21 @@
                 }
             },
             addChild () {
+                console.log(this.name)
                 this.list.children.push({
-                    name: 'new item'
+                    name: this.name || 'new item'
                 })
+            },
+            deleteChild () {
+                for(let key in this.list) {
+                    Vue.delete(this.list, key)
+                }
+            },
+            isEmptyObj (obj) {
+                for(let e in obj) {
+                    return false
+                }
+                return true
             }
         }
     }
@@ -115,6 +143,21 @@
         justify-content: space-between;
         &:hover {
             background: rgba(77, 175, 229, 0.2);
+            .addChild {
+                display: inline-block;
+            }
+            .deleteChild {
+                display: inline-block;
+            }
+        }
+        .constrol  {
+
+        }
+        .addChild {
+            display: none;
+        }
+        .deleteChild {
+            display: none;
         }
        
     }

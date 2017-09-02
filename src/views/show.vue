@@ -16,7 +16,7 @@
                                     <div class="content">
                                         <p>Panel</p>
                                         <ul class="list">
-                                            <treeMenu :list="list"></treeMenu>
+                                            <treeMenu :list="list" name="new" addText="create"></treeMenu>
                                         </ul>
                                     </div>
                                 </div>
@@ -230,6 +230,8 @@
     }
     .list {
         text-align: left;
+        box-shadow: 0 1px 6px rgba(0,0,0,.4),
+                    0 1px 4px rgba(0,0,0,.2); 
     }
      @mixin panel {
         border: 2px solid #8BE388; 
