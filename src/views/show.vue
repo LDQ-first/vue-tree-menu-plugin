@@ -15,7 +15,7 @@
                                     </header>
                                     <div class="content">
                                         <p>Panel One</p>
-                                        
+                                        <treeMenu></treeMenu>
                                     </div>
                                 </div>
                             </ripple>
@@ -89,7 +89,7 @@
 
 <script>
  /*   const pullRefresh = resolve => require(['../components/pullRefreshs.vue'], resolve)*/
-    import treeMenu from '../components/treeMenu.vue'
+   /* import treeMenu from '../components/treeMenu.vue'*/
     export default {
         data () { 
             return {
@@ -114,7 +114,7 @@
         },
         components: {
            /* pullRefresh*/
-           treeMenu
+         /*  treeMenu*/
         },
         created () {
             this.setCode()

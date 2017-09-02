@@ -7,7 +7,15 @@ import 'highlight.js/styles/atom-one-dark.css'
 
 import VueRipple from 'vue-useripple'
 Vue.use(VueRipple)
+import treeMenuComponent from './components/treeMenu.vue'
 
+const VueTreeMenu = {
+  install: function(Vue) {
+    Vue.component('treeMenu',treeMenuComponent)
+  }
+}
+
+Vue.use(VueTreeMenu)
 
 Vue.config.productionTip = false
 
