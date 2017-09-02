@@ -1,46 +1,29 @@
 <template>
     <div class="show">
         <header>
-            <h1>Vue Pull To Refresh Plugin</h1>
+            <h1>Vue Tree Menu Plugin</h1>
         </header>
         <article>
                 <div  class="slotList">   
                     <section  class="section-one">
                         <div class="ui">
-                            <h2>Panel One</h2>
+                            <h2>Panel</h2>
                             <ripple class="ripPanel" children="one">
                                 <div slot="children" class="panel children">
                                     <header>
-                                        <h3>This is a Panel One</h3>
+                                        <h3>This is a Panel</h3>
                                     </header>
                                     <div class="content">
-                                        <p>Panel One</p>
-                                        <treeMenu></treeMenu>
+                                        <p>Panel</p>
+                                        <ul class="list">
+                                            <treeMenu :list="list"></treeMenu>
+                                        </ul>
                                     </div>
                                 </div>
                             </ripple>
                         </div>
                         <div class="code" v-hljs>
                             <pre><code>{{codeOne.html}}</code></pre>
-                        </div>
-                    </section>
-                    <section class="section-two">
-                        <div class="ui">
-                            <h2>Panel Two</h2>
-                            <ripple class="ripPanel">
-                                <div slot="pure" class="panel">
-                                    <header>
-                                        <h3>This is a Panel Two</h3>
-                                    </header>
-                                    <div class="content">
-                                        <p>Panel Two</p>
-                                       
-                                    </div>
-                                </div>
-                            </ripple>
-                        </div>
-                        <div class="code" v-hljs>
-                            <pre><code>{{codeTwo.html}}</code></pre>
                         </div>
                     </section>
                 </div>
@@ -105,10 +88,35 @@
                 codeTwo: {
                     html: ''
                 },
-                list: [],
-                options: {
-                    
-                }
+                list: {
+                    name: 'My Tree',
+                    children: [
+                        { name: 'hello' },
+                        { name: 'wat' },
+                        {
+                        name: 'child folder',
+                        children: [
+                            {
+                                name: 'child folder',
+                                children: [
+                                    { name: 'hello' },
+                                    { name: 'wat' }
+                                ]
+                            },
+                            { name: 'hello' },
+                            { name: 'wat' },
+                            {
+                                name: 'child folder',
+                                children: [
+                                    { name: 'hello' },
+                                    { name: 'wat' }
+                                ]
+                            }
+                        ]
+                        }
+                    ]
+                },
+
                 
             }
         },
@@ -220,36 +228,8 @@
         width: 100%;
         background: rgba(255, 255, 255, 0.5);
     }
-    .slotList {
-    }
-    .form-list  {
-        .form-list-item {
-            margin: 10px 0;
-            .list-item {
-                display: flex;
-                justify-content: space-between;
-                height: 40px;
-                .list-item-name {
-                    width: 60px;
-                    margin-right: 1em;
-                    display: inline-flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                }
-                .list-item-value {
-                    width:  calc(80% - 80px);
-                    border: 2px solid #CC99CC;
-                    padding: 0.5em 2em;
-                    border-radius: 2em;
-                    margin: 0;
-                    height: 1em;
-                    line-height: 1em;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-            }
-        }
+    .list {
+        text-align: left;
     }
      @mixin panel {
         border: 2px solid #8BE388; 
@@ -265,13 +245,15 @@
         } 
         .content {
             margin: 20px 0;
+            padding: 0.5em;
+            box-sizing: border-box;
         }
     }
-    .section-one, .section-two {
+    .section-one{
         .ripPanel.rippleWrapper {
-            width: 80%;
+            width: 60%;
             min-width: 320px;
-            max-width: 800px;
+            max-width: 600px;
             margin: 20px auto;
         }
         .panel {
