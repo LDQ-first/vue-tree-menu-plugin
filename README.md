@@ -24,7 +24,7 @@ Vue.use(VueTreeMenu)
 ``` 
 <!--html-->
 <ul class="list">
-    <treeMenu :list="list"></treeMenu>
+    <treeMenu :list="list" :menuIcon="true"></treeMenu>
 </ul>
 ```
                     
@@ -73,6 +73,13 @@ list: {
     required: true
 },
 /*
+    whether or not to show menuIcon
+*/
+menuIcon: {
+    type: Boolean,
+    required: true
+},
+/*
      name of a new menu item
 */
 name: {
@@ -115,6 +122,13 @@ addbtn: {
     required: false
 }
 ```
+
+## icon
+   
+>   open.svg  
+>   close.svg  
+>   fold.svg  
+>   unfold.svg  
 
 
 ## Dependencies

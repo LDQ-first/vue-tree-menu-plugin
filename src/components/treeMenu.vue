@@ -4,7 +4,13 @@
             <ripple>
                 <button slot="pure" class="item-btn" :class="{parent: isFolder}"
                  @click="toggle" >
-                    <span class="name">{{list.name}}</span>
+                    <span class="name">
+                        <span class="item-icon" v-if="menuIcon">
+                            <img class="icon" src="./icon/open.svg" v-if="spread"></img>
+                            <img class="icon" src="./icon/close.svg" v-else></img>
+                        </span>
+                        {{list.name}}
+                    </span>
                     <div class="constrol">
                         <span @click.stop="changeType" class="addChild" v-if="addbtn">{{AddText}}</span>
                         <span @click.stop="deleteChild" class="deleteChild" v-if="deletebtn && !this.list.root">{{DeleteText}}</span>
@@ -18,7 +24,7 @@
         </div>
         <ul v-show="spread" v-if="isFolder" class="list">
             <treeMenu v-for="(list, index) in list.children" 
-            key="index"  class="item"  :list="list" :name="name" :addText="addText" :deleteText="deleteText"
+            key="index"  class="item"  :list="list" :menuIcon="menuIcon" :name="name" :addText="addText" :deleteText="deleteText"
             addbtn="addbtn" deletebtn="deletebtn" add="add">
             </treeMenu>
             <ripple :isInline="true" class="addripple" bg="#F35286" speed="1" v-if="add">
@@ -34,6 +40,10 @@
         props: {
             list: {
                 type: Object,
+                required: true
+            },
+            menuIcon: {
+                type: Boolean,
                 required: true
             },
             name: {
@@ -138,7 +148,15 @@
             
         }
     }   
-    
+    .item-icon {
+        margin-right: 10px;
+    }
+    .icon {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: middle;
+    }
     .item-btn {
         cursor: pointer;
         border: none;
@@ -180,12 +198,7 @@
                     color: red;
                 }
             }
-            .icon {
-                width: 20px;
-                height: 20px;
-                display: inline-block;
-                vertical-align: middle;
-            }
+            
         }
         
        

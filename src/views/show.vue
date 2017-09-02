@@ -16,7 +16,7 @@
                                     <div class="content">
                                         <p>Panel</p>
                                         <ul class="list">
-                                            <treeMenu :list="list" name="new" addText="create"
+                                            <treeMenu :list="list" :menuIcon="true" name="new" addText="create"
                                             :addbtn="true" :deletebtn="true" :add="true"></treeMenu>
                                         </ul>
                                     </div>
@@ -156,7 +156,7 @@
     ` 
     <!--html-->
     <ul class="list">
-        <treeMenu :list="list" name="new" addText="create"
+        <treeMenu :list="list" :menuIcon="true" name="new" addText="create"
         :addbtn="true" :deletebtn="true" :add="true"></treeMenu>
     </ul>
    
